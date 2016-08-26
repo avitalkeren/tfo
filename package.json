@@ -1,0 +1,12 @@
+{
+  "name": "tfo-express",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "3.2.x",
+    "log4js": "0.6.38",
+    "mongodb": "^2.2.8",
+    "readable-stream": "~1.0.2",
+    "semver": "~4.3.3"
+  }
+}
