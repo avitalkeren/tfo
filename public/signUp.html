@@ -1,0 +1,24 @@
+<div class="scrollable">
+    <div class="scrollable-content section">
+
+        <form action="" id="" ng-submit="signUp()">
+
+            <div bs-panel title="">
+
+                <input bs-form-control type="text" ng-model="org.username" label="" label-class="col-xs-3 col-sm-2 col-lg-1" class="col-xs-10 col-sm-11 col-lg-12" placeholder="Username" />
+
+                <input bs-form-control type="text" ng-model="org.fullName" label="" label-class="col-xs-3 col-sm-2 col-lg-1" class="col-xs-10 col-sm-11 col-lg-12" placeholder="Full Name" />
+
+                <input bs-form-control type="password" ng-model="org.password" label="" label-class="col-xs-3 col-sm-2 col-lg-1" class="col-xs-10 col-sm-11 col-lg-12" placeholder="Password" />
+
+                <input bs-form-control type="text" ng-model="org.altId" label="" label-class="col-xs-3 col-sm-2 col-lg-1" class="col-xs-10 col-sm-11 col-lg-12" placeholder="altId" />
+
+                 <input bs-form-control type="text" ng-model="org.email" label="" label-class="col-xs-3 col-sm-2 col-lg-1" class="col-xs-10 col-sm-11 col-lg-12" placeholder="Email" />
+
+                <button ng-disabled = "org.username==undefined||org.username=='' || org.password=='' || org.password==undefined" type="submit" id="btnSignIn" class="btn btn-primary">
+                    Sign In
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

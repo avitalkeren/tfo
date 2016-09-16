@@ -1,0 +1,23 @@
+﻿<h1>Dlists</h1>
+
+  <div id="AddItem">
+        <h3>Add New DList</h3>
+        <input value="" type="text" placeholder="Name of Dlist" ng-model="vm.newDlistName">
+        <br />
+        <button ng-click="vm.addItem()">Add to list</button>
+
+        <ul data-role="listview" data-inset="true" data-shadow="false">
+         	<li data-role="collapsible" data-iconpos="right" data-inset="false" ng-repeat="dlist in vm.org.distribution_list">
+   			 <span class="tag tag-default tag-pill pull-xs-right">{{dlist.subscribers_number}}</span>
+  		 {{dlist.list_name}}
+  		</li>
+  
+</ul>
+
+
+  <div uib-accordion-group class="panel-default" heading="{{dlist.list_name}}" ng-repeat="dlist in vm.org.distribution_list">
+      con {{dlist.subscribers_number}}
+    </div>
+
+    <p>&nbsp;</p>
+<p><a href="#/login" class="btn btn-primary">Logout</a></p>

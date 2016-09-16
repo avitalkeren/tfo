@@ -1,0 +1,47 @@
+<h1>Add New User</h1>
+<form name="form" ng-submit="vm.addUserToDlist()" role="form" >
+	<div class="form-group" ng-class="{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }">
+	<label for="username">Full name</label>
+		<input type="text" name="fullName" id="fullName" class="form-control" ng-model="vm.user.fullName" required />
+		<span ng-show="form.fullName.$dirty && form.fullName.$error.required" class="help-block">Full Name name is required</span>
+	</div>
+	<div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
+		<label for="username">Email</label>
+		<input type="text" name="email" id="email" class="form-control" ng-model="vm.user.email" required />
+		<span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Email name is required</span>
+	</div>
+	<div class="form-group" >
+		<label for="username">Alternat Id</label>
+		<input type="text" name="alt_id" id="alt_id" class="form-control" ng-model="vm.user.alt_id"  />
+	</div>
+	<div class="form-group" ng-class="{ 'has-error': form.pic.$dirty && form.pic.$error.required }">
+		<label for="username">Picture Url</label>
+		<input type="text" name="pic" id="pic" class="form-control" ng-model="vm.user.pic" required />
+		<span ng-show="form.pic.$dirty && form.pic.$error.required" class="help-block">Picture Url name is required</span>
+	</div>
+	<div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+		<label for="username">Username</label>
+		<input type="text" name="username" id="username" class="form-control" ng-model="vm.user.username" required />
+		<span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
+	</div>
+	<div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+		<label for="password">Password</label>
+		<input type="password" name="password" id="password" class="form-control" ng-model="vm.user.password" required />
+		<span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+	</div>
+
+	<div class="form-group" ng-class="{ 'has-error': form.distlist.$dirty && form.distlist.$error.required }">
+		<label for="distlist">Dist List</label>
+		<select name="distlist" id="distlist" class="form-control" ng-model="vm.user.distlist"  class="selectpicker" required>
+		  <option ng-repeat="dlist in vm.org.distribution_list">{{dlist.list_name}}</option>
+		</select>
+		<span ng-show="form.distlist.$dirty && form.distlist.$error.required" class="help-block">Dist List is required</span>
+	</div>
+	</br>
+	<div class="form-actions">
+		<button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">AddUser</button>
+		<img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+		<a href="#/login" class="btn btn-link">Cancel</a>
+	</div>
+</form>
+<p><a href="#/login" class="btn btn-primary">Logout</a></p>
