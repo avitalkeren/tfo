@@ -8,20 +8,45 @@
     <legend>Add New DList</legend>
     <div id="AddItem" class="form-group">
      <input value="" type="text" placeholder="Name of Dlist" ng-model="vm.newDlistName" class="form-control" >
-  <button class="btn btn-default" ng-click="vm.addItem()">Add to list</button>
-    </div>
-     <ul class="list-group">
-    <li class="list-group-item" ng-repeat="dlist in vm.org.distribution_list" >{{dlist.list_name}} <span class="badge">{{dlist.subscribers_number}}</span></li>
+     <button class="btn btn-default" ng-click="vm.addItem()">Add to list</button>
+   </div>
+   <ul class="list-group">
+    <li class="list-group-item " ng-repeat="dlist in vm.org.distribution_list" >{{dlist.list_name}} 
+
+  
+        <button ng-if="!dlist.is_everyone" type="button" class="btn btn-danger btn-xs" style="float: right;" ng-click="vm.deleteItem(dlist)">
+          <span class="fa fa-trash"></span>
+        </button>
+     
+      <span class="badge">{{dlist.subscribers_number}}</span>
+    </li>
 
   </ul>
 
-   <p>&nbsp;</p>
-  <p><a href="#/login" class="btn btn-primary">Logout</a></p>
+
+
+<div class="panel-group" ui-state="myAccordion" ui-default="2">
+
+  <div class="panel panel-default" ng-repeat="i in [1,2,3]">
+    <div class="panel-heading" ui-set="{'myAccordion': i}">        
+      <h4 class="panel-title">
+          Collapsible Group Item #{{i}}
+      </h4>
+    </div>
+    <div ui-if="myAccordion == {{i}}">
+      <div class="panel-body">
+        {{lorem}}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 </div>
 </div> 
 
 
- 
 
 
- 
+

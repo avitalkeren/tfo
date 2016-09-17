@@ -16,8 +16,23 @@
         service.Update = Update;
         service.Delete = Delete;
         service.CreateNewUser = CreateNewUser;
+        service.PublishMessage = PublishMessage;
+        service.GetFeed = GetFeed;
 
         return service;
+
+        function GetFeed(userid, page_number) {
+
+            return $http.get('/api/feed/' + userid + "/" + page_number).then(handleSuccess, handleError('Error getting feed'));
+        }
+
+
+
+        function PublishMessage(org, dlist, message) {
+
+            return $http.post('/api/org/publish', {"org": org, "dlist": dlist, "message": message}).then(handleSuccess, handleError('Error creating user'));
+
+        }
 
          function Create(user) {
 

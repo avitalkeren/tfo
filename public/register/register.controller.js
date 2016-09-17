@@ -12,6 +12,10 @@
         vm.register = register;
 
         function register() {
+            //for demo add user pic - remove in real app
+            var random = Math.floor(Math.random() * (17 - 1 + 1)) + 1;
+            vm.user.pic = "/app-content/userImages/" + random + ".png" ;
+
             vm.dataLoading = true;
             UserService.Create(vm.user)
                 .then(function (response) {

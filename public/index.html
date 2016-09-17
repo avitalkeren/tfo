@@ -36,12 +36,15 @@
                     <a href="#/" class="btn btn-navbar btn-icon-only"><i class="fa fa-home fa-navbar"></i></a>
                     <a href="#/adduser" class="btn btn-navbar btn-icon-only"><i class="fa fa-user-plus fa-navbar"></i></a>
                     <a href="#/dlists" class="btn btn-navbar btn-icon-only"><i class="fa fa-list fa-navbar"></i></a>
+                    <a href="#/publish" class="btn btn-navbar btn-icon-only"><i class="fa fa-envelope fa-navbar"></i></a>
                 </div>
         </div>
         <div class="app-body" ng-class="{loading: loading}">
+
             <div ng-show="loading" class="app-content-loading">
                 <i class="fa fa-spinner fa-spin loading-spinner"></i>
             </div>
+            <div  style="margin-bottom:0 !important" ng-class=" { 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
             <div class="app-content">
                 <ng-view></ng-view>
             </div>
@@ -56,7 +59,6 @@
 <script src="app-content/js/angular-touch.min.js"></script>
 <script src="app-content/js/angular-cookies.min.js"></script>
 <script src="app-content/js/mobile-angular-ui.min.js"></script>
-<script src="app-content/js/jquery.md5.js"></script>
 
 
 <script src="app.js"></script>
@@ -70,5 +72,6 @@
 <script src="register/register.controller.js"></script>
 <script src="adduser/adduser.controller.js"></script>
 <script src="dlists/dlists.controller.js"></script>
+<script src="publish/publish.controller.js"></script>
 </body>
 </html>

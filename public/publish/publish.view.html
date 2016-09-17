@@ -1,0 +1,34 @@
+﻿<div ui-content-for="title">
+  <span>Publish New Message</span>
+</div>
+
+<div class="scrollable">
+  <div class="scrollable-content section">
+    <form name="form" ng-submit="vm.publishMessage()" role="form">
+
+      <fieldset>
+        <legend>Publish New Message</legend>
+
+        <div class="form-group" ng-class="{ 'has-error': form.MsgText.$dirty && form.MsgText.$error.required }">
+          <label for="MsgText" class="control-label">Message Text</label>
+          <textarea type="text" name="MsgText" id="MsgText" class="form-control" ng-model="vm.MsgText" required maxlength="140" />
+          <span ng-show="form.MsgText.$dirty && form.MsgText.$error.required" class="help-block">Message Text is required</span>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': form.distlist.$dirty && form.distlist.$error.required }">
+          <label for="distlist">Distribution List</label>
+          <select name="distlist" id="distlist" class="form-control" ng-model="vm.distlist"  class="selectpicker" required>
+            <option ng-repeat="dlist in vm.org.distribution_list" value="{{dlist._id}}">{{dlist.list_name}}</option>
+          </select>
+          <span ng-show="form.distlist.$dirty && form.distlist.$error.required" class="help-block">Distribution List is required</span>
+        </div>
+      </fieldset>
+    </br>
+    <div class="form-actions">
+      <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Publish</button>
+      <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+      <a href="/" class="btn btn-link">Cancel</a>
+    </div>
+  </form>
+</div>
+</div>

@@ -95,3 +95,32 @@ node server.js
 pidof node
 kill 10229
 node server.js 
+git add .
+git commit -m 
+git commit -m "canges"
+git push origin
+git add .
+git add . -A
+git status
+git commit - m "second commit"
+git commit -m "second commit"
+git push ogigin 
+git push origin 
+node server.js 
+node server.js 
+pidof node
+kill 20906
+node server.js 
+npm install promise --save
+node server.js 
+pidof node
+node server.js 
+pidof node
+kill 24481
+node server.js 
+pidof node
+kill 24778
+pidof node
+node server.js 
+npm install ngstorage  --save
+node server.js 

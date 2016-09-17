@@ -9,36 +9,48 @@
     function HomeController(UserService, $rootScope) {
         var vm = this;
 
-        vm.user = null;
-        vm.allUsers = [];
-        vm.deleteUser = deleteUser;
+        vm.org = null;
+        vm.page_number = 0;
+        vm.feedPages = [];
+        vm.feed = [];
 
         initController();
 
         function initController() {
             loadCurrentUser();
-            loadAllUsers();
+            loadUserFeed(1);
+
         }
 
-        function loadCurrentUser() {
-            UserService.GetByUsername($rootScope.globals.currentUser.username)
-                .then(function (user) {
-                    vm.user = user;
-                });
+       function loadCurrentUser() {
+        console.log("org_id: " + $rootScope.globals.currentUser.user_id);
+        UserService.GetById($rootScope.globals.currentUser.user_id)
+        .then(function (response) 
+        { 
+            if(response.success) 
+                vm.org = response.data;
+        });
         }
 
-        function loadAllUsers() {
-            UserService.GetAll()
-                .then(function (users) {
-                    vm.allUsers = users;
-                });
-        }
+        function loadUserFeed(page_number) {
+        console.log("org_id: " + $rootScope.globals.currentUser.user_id);
+        UserService.GetFeed($rootScope.globals.currentUser.user_id, page_number)
+        .then(function (response) 
+        { 
+            if(response.success) 
+            {
+                var feedPage = response.data.data;
+                vm.feedPages.push(feedPage);
+                console.log();
 
-        function deleteUser(id) {
-            UserService.Delete(id)
-            .then(function () {
-                loadAllUsers();
-            });
+                vm.page_number = feedPage.page_number;
+                if (feedPage.tweet_list != null)
+                {
+                    vm.feed.push.apply(vm.feed,feedPage.tweet_list);    
+                    console.log(vm.feed);
+                }
+            }
+        });
         }
     }
 

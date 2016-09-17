@@ -45,8 +45,8 @@
 
 				<div class="form-group" ng-class="{ 'has-error': form.distlist.$dirty && form.distlist.$error.required }">
 					<label for="distlist">Dist List</label>
-					<select name="distlist" id="distlist" class="form-control" ng-model="vm.user.distlist"  class="selectpicker" required>
-						<option ng-repeat="dlist in vm.org.distribution_list">{{dlist.list_name}}</option>
+					<select name="distlist" id="distlist" class="form-control" ng-model="vm.distlist"  class="selectpicker" required>
+						<option ng-repeat="dlist in vm.org.distribution_list" value="{{dlist._id}}">{{dlist.list_name}}</option>
 					</select>
 					<span ng-show="form.distlist.$dirty && form.distlist.$error.required" class="help-block">Dist List is required</span>
 				</div>

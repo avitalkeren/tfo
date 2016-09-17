@@ -26,8 +26,11 @@
         function addUserToDlist() {
             vm.dataLoading = true;
             vm.user.org_id = vm.org._id;
+            vm.distlist = "";
 
-            UserService.CreateNewUser(vm.user)
+
+
+            UserService.CreateNewUser(vm.user,vm.org,vm.distlist)
                 .then(function (response) {
                     if (response.success) {
                         FlashService.Success('adding a user was successful', true);

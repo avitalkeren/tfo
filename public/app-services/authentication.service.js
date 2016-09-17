@@ -9,20 +9,31 @@
     function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserService) {
         var service = {};
 
-        service.Signin = Signin; 
+        service.SaveTosession = SaveTosession; 
+        service.CleareSession = CleareSession; 
         service.Login = Login;
         service.SetCredentials = SetCredentials;
         service.ClearCredentials = ClearCredentials;
 
         return service;
 
-        function Signin(username, password, callback) {
+        function SaveTosession(key, value) {
 
+            $rootScope.mysession.key = value;
+            $cookieStore.put('mysession', $rootScope.mysession);
             
         }
 
+        function CleareSession()
+        {
+            $rootScope.mysession = {};
+            $cookieStore.remove('mysession');
+        }
+
+
 
         function Login(username, password, callback) {
+
             $http.post('/api/authenticate', { username: username, password: password })
                 .success(function (response) {
                     callback(response);

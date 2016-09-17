@@ -7,6 +7,7 @@ express = require('express'),
  log4js = require('log4js'),
  logger  = log4js.getLogger(),
 passwordHash = require('password-hash'),
+tfom  = require('./models/tfo.model'),
 
 //routes  = require('./routes/routes_mongo'),
 app     = express(),
@@ -44,38 +45,18 @@ app.configure('production', function() {
   });
 
   app.post('/api/authenticate', function ( request, response, next ) {
-
-
-    logger.debug("for auth org with username: " + request.body.username);
-
-    var find_map = { username: request.body.username};
-
-    db.collection('org',
-      function ( outer_error, collection ) {
-        collection.findOne(find_map, {password: 1}, function(err, document) {
-          if (err){
-            logger.debug(err);
-            response.send({'message':'An error has occurred: ' + err});
-            return;
-          }
-          if (document == null || document.password == null)
-          {
-            logger.debug("user not found");
-            response.send({"message": "user not found"});
-            return;
-          }
-            logger.debug("hashed password: " + document.password);
-            retval = passwordHash.verify(request.body.password, document.password);
-           if (!retval)
-           {
-              logger.debug("incorrect password");
-              response.send({"message": "incorrect password"});
-              return;
-           }
-           response.send({"success": true, "data": {"_id": document._id}});
-          });
-      });    
+    tfom.Authenticate(request, response, db);
   });
+
+  app.post('/api/org/publish', function ( request, response, next ) {
+    tfom.Publish(request, response, db);
+  });
+
+  app.get('/api/feed/:uid/:page_number', function ( request, response ) {
+    tfom.GetFeedForUser(request.params, response, db);
+  });
+
+
 
   app.get( '/api/:obj_type/:id/subscribers/list', function ( request, response ) {
 
@@ -110,58 +91,16 @@ app.configure('production', function() {
 
  //create org
   app.post( '/api/org/create', function ( request, response ) {
-    logger.debug("create new Org");
-    
-    db.collection("org",
-      function ( outer_error, collection ) {
-        var
-        options_map = { safe: true },
-        obj_map     = request.body;
-        
-        logger.debug("body " +  JSON.stringify(obj_map));
-
-        if (obj_map.password == null) 
-        {
-          logger.debug("password is null");
-          response.send({"message":"password is empty"});
-          return;
-        }
-        //hash password
-        obj_map.password = passwordHash.generate(obj_map.password);
-            
-        //create new dist list:
-        obj_map.distribution_list = [{
-          is_everyone: 1,
-          list_name: 'everyone',
-          subscribers_number: 0, 
-          total_num_of_tweets: 0,
-          tweets_pages: 0,
-          subscribers_id: null
-        }];
-
-        //init other properties:
-        obj_map.subscribers_number = 0;
-        obj_map.total_num_of_tweets = 0;
-
-
-        collection.insert(
-          obj_map,
-          options_map,
-          function ( inner_error, result_map ) {
-            if (inner_error != null) 
-              {
-                logger.debug("inner_error " + inner_error);
-                response.send({"message": inner_error});
-                return;
-              }
-              response.send( result_map );
-          });
-      });
+     tfom.CreateOrg(request, response, db);
   });
 
 
  //create user
   app.post( '/api/user/create', function ( request, response ) {
+   
+  tfom.CreateUser(request, response, db);
+  return ;
+   /*
     logger.debug("create new User");
     
     db.collection("user",
@@ -180,10 +119,23 @@ app.configure('production', function() {
         }
         //hash password
         obj_map.password = passwordHash.generate(obj_map.password);
-            
+        
+        //set dlist id
+        obj_map.dlist = ObjectID(obj_map.dlist);
+
+
         //add to org dlist:
         var dlist = obj_map.dlist;
       
+        //get subscribers list
+
+
+        var subscriber = {
+          entity_id: obj_map.dlist,
+          entity_type: "Org",
+          subscribers_list: null
+        };
+
         //init other properties:
       
 
@@ -200,6 +152,8 @@ app.configure('production', function() {
               response.send( result_map );
           });
       });
+
+      */
   });
 
 
@@ -257,6 +211,14 @@ app.post( '/api/:obj_type/update/:id', function ( request, response ) {
   find_map = { _id: ObjectID( request.params.id ) },
   obj_map  = request.body;
 
+  if (request.params.obj_type == 'org')
+  {
+     for (var i = obj_map.distribution_list.length - 1; i >= 0; i--) {
+        if (obj_map.distribution_list[i]._id == null) obj_map.distribution_list[i]._id = new ObjectID();
+     }
+
+  }
+
   logger.debug("update " + request.params.obj_type + " with id: " + request.params.id);
   logger.debug("body " +  JSON.stringify(obj_map));
   db.collection(
@@ -305,9 +267,6 @@ app.get( '/api/:obj_type/delete/:id', function ( request, response ) {
 app.get('*', function(request, response) {
         response.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
       });
-
-
-
 
   // Connect to the database before starting the application server.
   mongodb.MongoClient.connect('mongodb://localhost:27017/tfodb', function (err, database) {

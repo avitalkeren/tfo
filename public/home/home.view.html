@@ -1,11 +1,23 @@
-﻿<h1>Hi {{vm.user.firstName}}!</h1>
-<p>You're logged in!!</p>
-<h3>All registered users:</h3>
-<ul>
-    <li ng-repeat="user in vm.allUsers">
-        {{user.username}} ({{user.firstName}} {{user.lastName}})
-        - <a href="#" ng-click="vm.deleteUser(user.id)">Delete</a>
-    </li>
-</ul>
-<p>&nbsp;</p>
-<p><a href="#/login" class="btn btn-primary">Logout</a></p>
+﻿<div ui-content-for="title">
+  <span>Home</span>
+</div>
+<div class="scrollable">
+  	<div class="scrollable-content section">
+    	<legend>TFO Home</legend>
+    	<p>Hi {{vm.org.fullName}} !</p>
+
+    	<div ng-repeat="tweet in vm.feed">
+    		<div class="small-image pull-left thumbnail"><img src="{{tweet.publisher_pic}}" style="height:3.5em; width: 3.5em"/></div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+          			<h3 class="panel-title"><b>{{tweet.publisher_name}} </b></h3> <small>{{tweet.create_datetime | date : format : timezone}} </small>
+          		</div>
+         	    <div class="panel-body">
+           			{{tweet.text}} 
+        		</div>
+			</div>
+         </div>
+         </div>
+	</div>
+</div>
+
