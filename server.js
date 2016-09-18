@@ -48,6 +48,13 @@ app.configure('production', function() {
     tfom.Authenticate(request, response, db);
   });
 
+ //create org
+  app.post( '/api/org/create', function ( request, response ) {
+     tfom.CreateOrg(request, response, db);
+  });
+
+
+
   app.post('/api/org/publish', function ( request, response, next ) {
     tfom.Publish(request, response, db);
   });
@@ -56,6 +63,30 @@ app.configure('production', function() {
     tfom.GetFeedForUser(request.params, response, db);
   });
 
+  app.get('/api/feed/:uid/:page_number', function ( request, response ) {
+    tfom.GetFeedForUser(request.params, response, db);
+  });
+
+  app.get('/api/subscribers/list/:id', function ( request, response ) {
+    tfom.GetOrgSubscribersList(request.params, response, db);
+  });
+
+  app.post('/api/subscribers/create', function ( request, response, next ) {
+    tfom.CreateSubscribers(request, response, db);
+  });
+
+   app.post('/api/subscribers/update', function ( request, response, next ) {
+    tfom.UpdateSubscribers(request, response, db);
+  });
+
+  app.get('/api/subscribers/delete/:id', function ( request, response ) {
+    tfom.DeleteSubscribers(request.params, response, db);
+  });
+
+ //create user
+  app.post( '/api/user/create', function ( request, response ) {
+    tfom.CreateUser(request, response, db);
+  });
 
 
   app.get( '/api/:obj_type/:id/subscribers/list', function ( request, response ) {
@@ -89,72 +120,9 @@ app.configure('production', function() {
  });
 
 
- //create org
-  app.post( '/api/org/create', function ( request, response ) {
-     tfom.CreateOrg(request, response, db);
-  });
 
 
- //create user
-  app.post( '/api/user/create', function ( request, response ) {
-   
-  tfom.CreateUser(request, response, db);
-  return ;
-   /*
-    logger.debug("create new User");
-    
-    db.collection("user",
-      function ( outer_error, collection ) {
-        var
-        options_map = { safe: true },
-        obj_map     = request.body;
-        
-        logger.debug("body " +  JSON.stringify(obj_map));
 
-        if (obj_map.password == null) 
-        {
-          logger.debug("password is null");
-          response.send({"message":"password is empty"});
-          return;
-        }
-        //hash password
-        obj_map.password = passwordHash.generate(obj_map.password);
-        
-        //set dlist id
-        obj_map.dlist = ObjectID(obj_map.dlist);
-
-
-        //add to org dlist:
-        var dlist = obj_map.dlist;
-      
-        //get subscribers list
-
-
-        var subscriber = {
-          entity_id: obj_map.dlist,
-          entity_type: "Org",
-          subscribers_list: null
-        };
-
-        //init other properties:
-      
-
-        collection.insert(
-          obj_map,
-          options_map,
-          function ( inner_error, result_map ) {
-            if (inner_error != null) 
-              {
-                logger.debug("inner_error " + inner_error);
-                response.send({"message": inner_error});
-                return;
-              }
-              response.send( result_map );
-          });
-      });
-
-      */
-  });
 
 
   //create collections

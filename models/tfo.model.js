@@ -8,6 +8,14 @@ var mongodb = require("mongodb");
 var Promise = require("promise");
 var ObjectID = mongodb.ObjectID; 
 
+//constans
+var ENTITY_TYPE_ORG = "org";
+var ENTITY_TYPE_USER = "user";
+var COLLECTION_ENTITY = "entity"
+var COLLECTION_SUBSCRIBERS = "subscribers"
+
+
+
 //authenticate user - get user by username and validate password
 var Authenticate = function(request, response, db)
 {
@@ -42,8 +50,36 @@ var Authenticate = function(request, response, db)
     });  
 };
 
-var Publish = function(request, response, db){
+var GetEntitiyById = function(request_params, response, db){
+   var user_id = request_params.id;
+   var find_map = {_id: ObjectID(user_id)};
 
+   AsyncFindOneObj(find_map,COLLECTION_ENTITY,db).then(function (res){
+      logger.debug("res: " + JSON.stringify(res));
+
+        SendSucess(response,res);
+    }, function(error){
+       SendError(response,error);
+    });
+};
+
+
+var GetOrgSubscribersList = function(request_params, response, db){
+    var org_id = request_params.id;
+    var find_map = {entity_id: ObjectID(org_id)};
+
+    AsyncFindList(find_map,{},COLLECTION_SUBSCRIBERS,db).then(function (res){
+      logger.debug("GetOrgSubscribersList res: " + JSON.stringify(res));
+
+        SendSucess(response,res);
+    }, function(error){
+       SendError(response,error);
+    });
+
+};
+
+
+var Publish = function(request, response, db){
   logger.debug("body " +  JSON.stringify(request.body));
 
   var message = request.body.message;
@@ -61,14 +97,10 @@ var Publish = function(request, response, db){
     org_dsit_list: dlist
   };
 
-
- 
-
   AsyncPublishToUser(ObjectID(org._id),"org", tweet,db).then(function(res){
     SendSucess(response,res);
   }, function(error){
     SendError(response,error);
-
   });
 
   //get subsribers for dlist
@@ -78,10 +110,9 @@ var Publish = function(request, response, db){
   //publish message to each user in list
 
   //add to org published messages
+};
 
-}
-
- var GetFeedForUser = function(request_params, response, db){
+var GetFeedForUser = function(request_params, response, db){
     var user_id = request_params.uid;
     var page_number = parseInt(request_params.page_number);
     logger.debug("GetFeedForUser: " + user_id + " page_number: " + page_number);
@@ -93,11 +124,256 @@ var Publish = function(request, response, db){
     }, function(error){
        SendError(response,error);
     });
+  };
+
+
+
+var CreateOrg = function(request, response, db)
+{
+  logger.debug("create new Org: " + JSON.stringify(request.body));
+
+  var org = request.body;
+
+  if (org.password == null) {
+    SendError(response,"password is null");
+    return;
   }
 
+  org.entity_type = ENTITY_TYPE_ORG;
+  //hash password:
+  org.password = passwordHash.generate(org.password);
+        
+  //init other properties:
+  org.subscribers_number = 0;
+  org.total_num_of_tweets = 0;
 
-function AsyncPublishToUser(userid, usretype,tweet,db)
+  //insert to entity collection
+  AsyncInsertObj(org, COLLECTION_ENTITY, db).then(function(res){
+    //new org ID:
+    org._id = res.insertedIds[0];
+
+    logger.debug("org created with id: " +  org._id );
+
+    var distlist = {
+      entity_id: ObjectID(org._id),
+      entity_type: ENTITY_TYPE_ORG,
+      is_everyone: 1,
+      list_name: 'everyone',
+      subscribers_number: 0,
+      total_num_of_tweets: 0,
+      tweets_pages: 0,
+      subscribers: []
+    };
+    AsyncInsertObj(distlist, COLLECTION_SUBSCRIBERS, db).then(function(res){
+      SendSucess(response,res);
+    },function(error){
+      SendError(response,error);
+    });
+  }, function(error){
+    SendError(response,error);
+  });
+};
+
+var CreateSubscribers = function(request, response, db){
+  logger.debug("create new Subscribers: " + JSON.stringify(request.body));
+
+  var subscriber = request.body;
+  subscriber.entity_id = ObjectID(subscriber.entity_id);
+
+  AsyncInsertObj(subscriber, COLLECTION_SUBSCRIBERS, db).then(function(res){
+      SendSucess(response,res);
+    },function(error){
+      SendError(response,error);
+    });
+};
+
+var UpdateSubscribers = function(request, response, db){
+  logger.debug("update new Subscribers: " + JSON.stringify(request.body));
+
+  var subscriber = request.body;
+  subscriber.entity_id = ObjectID(subscriber.entity_id);
+
+  AsyncUpdateObj(subscriber, COLLECTION_SUBSCRIBERS, db).then(function(res){
+      SendSucess(response,res);
+    },function(error){
+      SendError(response,error);
+    });
+};
+
+
+var DeleteSubscribers = function(request_params, response, db){
+    logger.debug("deleting Subscribers: " + JSON.stringify(request_params.id));
+
+    var Subscribers_id = request_params.id;
+    AsyncDeleteObj(Subscribers_id,COLLECTION_SUBSCRIBERS,db).then(function(res){
+      SendSucess(response,res);
+    },function(error){
+      SendError(response,error);
+    });
+};
+
+
+function CreateNewSubscribersList( response, db, entity_id, entity_type)
 {
+  var options_map = { safe: true };
+   var SubscribersList = {
+          entity_id: ObjectID(entity_id),
+          entity_type: entity_type,
+          subscribers_list: []
+        };
+
+     db.collection("subscribers",
+       function ( outer_error, collection ) {
+        collection.insert(options_map,SubscribersList, 
+          function ( inner_error, result_map ) {
+                if (inner_error != null) 
+                  {
+                    logger.debug("inner_error " + inner_error);
+                    response.send({"message": inner_error});
+                    return;
+                  }
+                  response.send( result_map );
+                });
+       });
+}
+
+function CreateUser(request, response, db)
+{
+    logger.debug("create new USER :" +  JSON.stringify(request.body));
+    
+    var user = request.body;
+
+     //check password
+     if (user.password == null) {
+      SendError("password is null");
+      return;
+     }
+     //hash password
+     user.password = passwordHash.generate(user.password);
+     //set dlist id
+     user.org_id = ObjectID(user.org_id);
+     user.entity_type = ENTITY_TYPE_USER;
+
+      AsyncInsertObj(user, COLLECTION_ENTITY, db).then(function(res) {
+        var newuserid = res.insertedIds[0];
+        SendSucess(response,newuserid);
+        logger.debug("New Users Id: " + newuserid);
+      }, function(error){
+        SendError(response,error);
+    });
+}
+
+//----------------------------Promises-----------------------------
+//-----------------------------------------------------------------
+
+
+function AsyncUpdateObj(obj, colname,db){
+  var  find_map = { _id: ObjectID( obj._id ) };
+  var sort_order = [];
+  var options_map = {'new' : true, upsert: false, safe: true};
+  obj._id = ObjectID(obj._id); 
+
+  return new Promise(function(resolve, reject) {
+    db.collection(colname,
+      function ( outer_error, collection ) {
+        collection.findAndModify(find_map,
+          sort_order,
+          obj, 
+          options_map,
+          function ( inner_error, result_map ) {
+            if (inner_error != null) {
+              reject(inner_error);
+            }
+            else{
+              resolve(result_map);
+            }
+          });
+      });
+  });
+}
+
+function AsyncInsertObj(obj, colname,db){
+  var options_map = { safe: true };
+
+  return new Promise(function(resolve, reject) {
+    db.collection(colname,
+      function ( outer_error, collection ) {
+        collection.insert(obj, options_map,
+         function ( inner_error, result_map ) {
+          if (inner_error != null) {
+            reject(inner_error);
+          }
+          else{ 
+           resolve(result_map);
+         }
+       });
+      });
+  });
+}
+
+function AsyncDeleteObj(id, colname,db){
+ 
+  var find_map = {_id: ObjectID(id)};
+  var options_map = {safe: true, single: true};
+
+
+  return new Promise(function(resolve, reject) {
+    db.collection(colname,
+      function ( outer_error, collection ) {
+        collection.remove(find_map, options_map,
+         function ( inner_error, delete_count ) {
+          if (inner_error != null) {
+            reject(inner_error);
+          }
+          else{ 
+           resolve({ delete_count: delete_count });
+         }
+       });
+      });
+  });
+}
+
+function AsyncFindOneObj( find_map,colname,db){
+  
+  return new Promise(function(resolve, reject) {
+    db.collection(colname,
+      function ( outer_error, collection ) {
+        collection.findOne(
+          find_map,
+          function ( inner_error, result_map ) {
+            if (inner_error != null) {
+              reject(inner_error);
+            }
+            else{ 
+              resolve(result_map);
+            }
+          });
+      });
+  });
+}
+
+function AsyncFindList( find_map, proj_map,colname,db){
+  
+  return new Promise(function(resolve, reject) {
+    db.collection(colname,
+      function ( outer_error, collection ) {
+        collection.find(
+          find_map,
+          proj_map).toArray(
+          function ( inner_error, map_list ) {
+            if (inner_error != null) {
+              reject(inner_error);
+            }
+            else{ 
+              resolve(map_list);
+            }
+          });
+      });
+  });
+}
+
+
+function AsyncPublishToUser(userid, usretype,tweet,db){
     //get feed page:
     var feedPage = null;
 
@@ -146,166 +422,8 @@ function AsyncPublishToUser(userid, usretype,tweet,db)
      }, function (error){ 
       logger.debug("error " + error);
      });
-
 }
 
-
-
-
-
-
-var CreateOrg = function(request, response, db)
-{
-	logger.debug("create new Org");
-    
-    db.collection("org",
-      function ( outer_error, collection ) {
-        var
-        options_map = { safe: true },
-        obj_map     = request.body;
-        
-        logger.debug("body " +  JSON.stringify(obj_map));
-
-        if (obj_map.password == null) 
-        {
-        	SendError(response,"password is null");
-          return;
-        }
-        //hash password
-        obj_map.password = passwordHash.generate(obj_map.password);
-        
-        //create new  subscribers list
-        //CreateNewSubscribersList();
-
-       
-
-      //  collection.insert();
-
-
-
-        //create new dist list:
-        obj_map.distribution_list = [{
-        	_id: new ObjectID(),
-          is_everyone: 1,
-          list_name: 'everyone',
-          subscribers_number: 0, 
-          total_num_of_tweets: 0,
-          tweets_pages: 0,
-          subscribers_id: null
-        }];
-
-        //init other properties:
-        obj_map.subscribers_number = 0;
-        obj_map.total_num_of_tweets = 0;
-
-
-        collection.insert(
-          obj_map,
-          options_map, HandelMongoResponse);
-
-      });
-};
-
-function CreateNewSubscribersList( response, db, entity_id, entity_type)
-{
-	var options_map = { safe: true };
-	 var SubscribersList = {
-        	entity_id: ObjectID(entity_id),
-        	entity_type: entity_type,
-        	subscribers_list: []
-        };
-
-     db.collection("subscribers",
-     	 function ( outer_error, collection ) {
-     	 	collection.insert(options_map,SubscribersList, 
-     	 		function ( inner_error, result_map ) {
-            		if (inner_error != null) 
-              		{
-                		logger.debug("inner_error " + inner_error);
-                		response.send({"message": inner_error});
-                		return;
-              		}
-              		response.send( result_map );
-              	});
-     	 });
-}
-
-//promise
-function AsyncCreateUser(user,db) {
-	return AsyncInsertObj(user, "user", db);
-}
-
-
-
-
-function AsyncUpdateObj(obj, colname,db){
-
-      var  find_map = { _id: ObjectID( obj._id ) };
-      var sort_order = [];
-      var options_map = {'new' : true, upsert: false, safe: true};
-      obj._id = ObjectID(obj._id); 
-
-// perform some asynchronous operation, resolve or reject the promise when appropriate.
-    return new Promise(function(resolve, reject) {
-    //insert user to users
-  db.collection(colname,
-       function ( outer_error, collection ) {
-        collection.findAndModify(find_map, sort_order, obj, options_map,
-          function ( inner_error, result_map ) {
-                if (inner_error != null) {
-                    reject(inner_error);
-                  }
-                  else{ 
-                    resolve(result_map);
-                  }
-                });
-       });
-  });
-}
-
-
-function AsyncInsertObj(obj, colname,db){
-
-	var options_map = { safe: true };
-// perform some asynchronous operation, resolve or reject the promise when appropriate.
-  	return new Promise(function(resolve, reject) {
-   	//insert user to users
-	db.collection(colname,
-     	 function ( outer_error, collection ) {
-     	 	collection.insert(obj, options_map,
-     	 		function ( inner_error, result_map ) {
-            		if (inner_error != null) {
-                		reject(inner_error);
-               		}
-              		else{ 
-              			resolve(result_map);
-              		}
-              	});
-     	 });
-	});
-}
-
-function AsyncFindOneObj( find_map,colname,db){
-
-  return new Promise(function(resolve, reject) {
-    db.collection(colname,
-      function ( outer_error, collection ) {
-        collection.findOne(
-          find_map,
-          function ( inner_error, result_map ) {
-            if (inner_error != null) {
-              reject(inner_error);
-            }
-            else{ 
-              resolve(result_map);
-            }
-          });
-      });
-  });
-}
-
-
-//promise
 function AsyncCreateSubscription(entity_id,entity_type ,db) {
 
 	var subscription = {
@@ -329,52 +447,6 @@ function AsyncInsertNewSubscription(userid,entity_type ,db) {
 	return AsyncInsertObj(subscription, "subscriptions", db);
 }
 
-function CreateUser(request, response, db)
-{
-	logger.debug("create new User");
-    
-    var user = request.body;
-
-    logger.debug("user :" +  JSON.stringify(user));
-
-    //get user dlist id
-   	var distlist = ObjectID(user.distlist);
-    delete user.distlist;
-
-	//check password
-     if (user.password == null) {
-     	SendError("password is null");
-     	return;
-     }
-     //hash password
-     user.password = passwordHash.generate(user.password);
-     //set dlist id
-     user.org_id = ObjectID(user.org_id);
-
-	var asyncCreateUserPromise = AsyncCreateUser(user,db);
-	asyncCreateUserPromise.then(function(res) {
-
-		var newuserid = res.insertedIds[0];
-		logger.debug("New Id: " + newuserid);
-		
-		//create subscription for the user with ID
-		var asyncCreateSubscriptionPromise = AsyncCreateSubscription(newuserid,"user",db);
-		asyncCreateSubscriptionPromise.then(function(res){
-			var newsubid = res.insertedIds[0];
-			logger.debug("New Id: " + newuserid);
-
-			//add dllist to subscribed
-
-		}, function(error){
-
-		});
-
-		SendSucess(response,res);
-	}, function(error){
-		SendError(response,error);
-	});
-}
-
 function AddSubscriptionToUser(userid, subid, subtype, db)
 {
 	//get user subscriptions
@@ -384,6 +456,10 @@ function AddSubscriptionToUser(userid, subid, subtype, db)
 	//add the sub to the user list.
 
 }
+
+
+//-----------------------------error handaling-------------------------------
+//---------------------------------------------------------------------------
 
 function HandelMongoResponse(response, inner_error, result_map )
 {
@@ -406,8 +482,17 @@ function SendError(response, errorMsg){
     response.send({"message": errorMsg});
 }
 
+//-----------------------------exports-------------------------------
+//-------------------------------------------------------------------
+
 module.exports.Authenticate = Authenticate;
 module.exports.CreateOrg = CreateOrg;
 module.exports.CreateUser = CreateUser;
 module.exports.Publish = Publish;
 module.exports.GetFeedForUser = GetFeedForUser;
+module.exports.GetEntitiyById = GetEntitiyById;
+module.exports.GetOrgSubscribersList = GetOrgSubscribersList;
+module.exports.CreateSubscribers = CreateSubscribers;
+module.exports.DeleteSubscribers = DeleteSubscribers;
+module.exports.UpdateSubscribers = UpdateSubscribers;
+

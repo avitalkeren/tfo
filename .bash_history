@@ -124,3 +124,10 @@ pidof node
 node server.js 
 npm install ngstorage  --save
 node server.js 
+git add . -A
+git commit -m " commit"
+git push origin 
+node server.js 
+pidof node
+kill 25980
+node server.js 

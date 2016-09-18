@@ -8,16 +8,19 @@
     RegisterController.$inject = ['UserService', '$location', '$rootScope', 'FlashService'];
     function RegisterController(UserService, $location, $rootScope, FlashService) {
         var vm = this;
+        vm.user = {};
+        
+        //for demo add user pic - remove in real app
+        var random = Math.floor(Math.random() * (17 - 1 + 1)) + 1;
+        vm.user.pic = "/app-content/userImages/" + random + ".png" ;
 
         vm.register = register;
 
         function register() {
-            //for demo add user pic - remove in real app
-            var random = Math.floor(Math.random() * (17 - 1 + 1)) + 1;
-            vm.user.pic = "/app-content/userImages/" + random + ".png" ;
+           
 
             vm.dataLoading = true;
-            UserService.Create(vm.user)
+            UserService.CreateOrg(vm.user)
                 .then(function (response) {
                     if (response.success) {
                         FlashService.Success('Registration successful', true);

@@ -11,60 +11,63 @@
 
         vm.org = null;
 
+        vm.dlists = [];
         vm.newDlistName = null;
         vm.addItem = addItem;
         vm.deleteItem = deleteItem;
 
+        vm.org_id = $rootScope.globals.currentUser.user_id;
+
+        initController();
+
+        function initController() {
+            loadOrgdlist();
+        }
+
+        function loadOrgdlist()
+        {
+            UserService.GetDistributionLists(vm.org_id).then(function (response){ 
+                if(response.success) 
+                    vm.dlists = response.data.data;
+                console.log("lists: ");
+                console.log(vm.dlists);
+                //$("#dlist_listview").listview("refresh");
+
+            });
+        }
+
         function deleteItem(dlist){
-          console.log("deleting :" + dlist.list_name);
-          vm.org.distribution_list.splice(vm.org.distribution_list.indexOf(dlist,1));
-          updateList();
-      }
+            console.log("deleting :" + dlist.list_name + " with id: " + dlist._id);
+            vm.dlists.splice(vm.dlists.indexOf(dlist,1));
+            UserService.DeletSubscrober(dlist._id).then(function (response) 
+            { 
+                console.log(response.success)
+            });
+        }
 
       function addItem(){
         console.log("adding :" + vm.newDlistName);
-        vm.org.distribution_list.push({
-            _id: null,
+
+        var dlist = {
+            entity_id: vm.org_id,
+            entity_type: "org",
             is_everyone: 0, 
             list_name: vm.newDlistName,
-            subscribers_id: null, 
+            subscribers: [],
             subscribers_number: 0, 
             total_num_of_tweets: 0,
             tweets_pages: 0
-        });
+        };
 
-        updateList();
-
-    }
-
-    initController();
-
-    function updateList(){
-        //update org:
-        UserService.Update(vm.org) .then(function (response) 
+        UserService.AddSubscrober(dlist).then(function (response) 
         { 
-            console.log(response.success)
-            if(response.success) 
-                vm.org = response.data;
+            console.log(response)
+           // dlist._id = response.data.
         });
-    }
 
-    function initController() {
-        loadCurrentUser();
+        loadOrgdlist();
 
     }
-
-    function loadCurrentUser() {
-        console.log("org_id: " + $rootScope.globals.currentUser.user_id);
-        UserService.GetById($rootScope.globals.currentUser.user_id)
-        .then(function (response) 
-        { 
-            if(response.success) 
-                vm.org = response.data;
-        });
-    }
-
-
 }
 
 })();

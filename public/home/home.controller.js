@@ -23,12 +23,13 @@
         }
 
        function loadCurrentUser() {
-        console.log("org_id: " + $rootScope.globals.currentUser.user_id);
+        console.log("user id: " + $rootScope.globals.currentUser.user_id);
         UserService.GetById($rootScope.globals.currentUser.user_id)
         .then(function (response) 
         { 
+            console.log(response.data);
             if(response.success) 
-                vm.org = response.data;
+                vm.org = response.data.data;
         });
         }
 
@@ -40,6 +41,7 @@
             if(response.success) 
             {
                 var feedPage = response.data.data;
+                if (feedPage == null) return;
                 vm.feedPages.push(feedPage);
                 console.log();
 

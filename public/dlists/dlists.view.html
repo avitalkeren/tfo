@@ -10,39 +10,26 @@
      <input value="" type="text" placeholder="Name of Dlist" ng-model="vm.newDlistName" class="form-control" >
      <button class="btn btn-default" ng-click="vm.addItem()">Add to list</button>
    </div>
-   <ul class="list-group">
-    <li class="list-group-item " ng-repeat="dlist in vm.org.distribution_list" >{{dlist.list_name}} 
 
-  
+   <div class="panel-group" ui-state="myAccordion" ui-default="2">
+
+    <div class="panel panel-default" ng-repeat="dlist in vm.dlists">
+      <div class="panel-heading" ui-set="{'myAccordion': $index}">        
+        <h4 class="panel-title">{{dlist.list_name}} 
         <button ng-if="!dlist.is_everyone" type="button" class="btn btn-danger btn-xs" style="float: right;" ng-click="vm.deleteItem(dlist)">
           <span class="fa fa-trash"></span>
         </button>
-     
-      <span class="badge">{{dlist.subscribers_number}}</span>
-    </li>
-
-  </ul>
-
-
-
-<div class="panel-group" ui-state="myAccordion" ui-default="2">
-
-  <div class="panel panel-default" ng-repeat="i in [1,2,3]">
-    <div class="panel-heading" ui-set="{'myAccordion': i}">        
-      <h4 class="panel-title">
-          Collapsible Group Item #{{i}}
-      </h4>
-    </div>
-    <div ui-if="myAccordion == {{i}}">
-      <div class="panel-body">
-        {{lorem}}
+        <span style="float: right;" class="badge">{{dlist.subscribers_number}}</span></h4>
+      </div>
+      <div ui-if="myAccordion == {{$index}}">
+        <div class="panel-body">
+         <ul class="list-group" id="dlist_listview">
+          <li class="list-group-item " ng-repeat="subs in dlist.subscribers">{{subs.name}}</li>
+        </ul>
       </div>
     </div>
   </div>
 </div>
-
-
-
 </div>
 </div> 
 
