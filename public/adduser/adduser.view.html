@@ -44,11 +44,11 @@
 				</div>
 
 				<div class="form-group" ng-class="{ 'has-error': form.distlist.$dirty && form.distlist.$error.required }">
-					<label for="distlist">Dist List</label>
+					<label for="distlist">Distribution List</label>
 					<select name="distlist" id="distlist" class="form-control" ng-model="vm.selected_distlist"  class="selectpicker" required>
 						<option ng-repeat="dlist in vm.dlists" value="{{dlist}}">{{dlist.list_name}}</option>
 					</select>
-					<span ng-show="form.distlist.$dirty && form.distlist.$error.required" class="help-block">Dist List is required</span>
+					<span ng-show="form.distlist.$dirty && form.distlist.$error.required" class="help-block">Distribution List is required</span>
 				</div>
 
 			</fieldset>

@@ -28,7 +28,6 @@
         function initController() {
 
             loadOrgdlist();
-           // loadCurrentUser();
         }
 
         function addUserToDlist() {

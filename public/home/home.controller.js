@@ -29,7 +29,7 @@
         { 
             console.log(response.data);
             if(response.success) 
-                vm.org = response.data.data;
+                vm.org = response.data;
         });
         }
 

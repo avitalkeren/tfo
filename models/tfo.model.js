@@ -94,22 +94,27 @@ var Publish = function(request, response, db){
     publisher_id: ObjectID(org._id),
     publisher_name: org.fullName,
     publisher_pic: org.pic,
-    org_dsit_list: dlist
+    org_dsit_id: ObjectID(dlist._id),
+    org_dsit_name: dlist.list_name
   };
 
-  AsyncPublishToUser(ObjectID(org._id),"org", tweet,db).then(function(res){
+  logger.debug(JSON.stringify(tweet));
+  //add to org feeed
+
+  var parr = [];
+  parr.push(AsyncPublishToUser(ObjectID(org._id),org.entity_type, tweet,db));
+
+  //publish message to each user in list
+  for (var i = dlist.subscribers.length - 1; i >= 0; i--) {
+    var userid = ObjectID(dlist.subscribers[i]._id);
+    parr.push(AsyncPublishToUser(userid, ENTITY_TYPE_USER, tweet, db));
+  }
+  //call all promises
+  Promise.all(parr).then(function(res){
     SendSucess(response,res);
   }, function(error){
     SendError(response,error);
   });
-
-  //get subsribers for dlist
-
-  //get tweet page
-
-  //publish message to each user in list
-
-  //add to org published messages
 };
 
 var GetFeedForUser = function(request_params, response, db){
