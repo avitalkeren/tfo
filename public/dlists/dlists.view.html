@@ -24,7 +24,8 @@
       <div ui-if="myAccordion == {{$index}}">
         <div class="panel-body">
          <ul class="list-group" id="dlist_listview">
-          <li class="list-group-item " ng-repeat="subs in dlist.subscribers">{{subs.name}}</li>
+          <li class="list-group-item " ng-repeat="subs in dlist.subscribers">
+          {{subs.name}}</li>
         </ul>
       </div>
     </div>

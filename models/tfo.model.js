@@ -1,6 +1,3 @@
-
-
-
 var log4js = require('log4js');
 var logger  = log4js.getLogger();
 var passwordHash = require('password-hash');
@@ -13,8 +10,6 @@ var ENTITY_TYPE_ORG = "org";
 var ENTITY_TYPE_USER = "user";
 var COLLECTION_ENTITY = "entity"
 var COLLECTION_SUBSCRIBERS = "subscribers"
-
-
 
 //authenticate user - get user by username and validate password
 var Authenticate = function(request, response, db)
@@ -218,30 +213,6 @@ var DeleteSubscribers = function(request_params, response, db){
 };
 
 
-function CreateNewSubscribersList( response, db, entity_id, entity_type)
-{
-  var options_map = { safe: true };
-   var SubscribersList = {
-          entity_id: ObjectID(entity_id),
-          entity_type: entity_type,
-          subscribers_list: []
-        };
-
-     db.collection("subscribers",
-       function ( outer_error, collection ) {
-        collection.insert(options_map,SubscribersList, 
-          function ( inner_error, result_map ) {
-                if (inner_error != null) 
-                  {
-                    logger.debug("inner_error " + inner_error);
-                    response.send({"message": inner_error});
-                    return;
-                  }
-                  response.send( result_map );
-                });
-       });
-}
-
 function CreateUser(request, response, db)
 {
     logger.debug("create new USER :" +  JSON.stringify(request.body));
@@ -429,37 +400,8 @@ function AsyncPublishToUser(userid, usretype,tweet,db){
      });
 }
 
-function AsyncCreateSubscription(entity_id,entity_type ,db) {
-
-	var subscription = {
-		entity_id: entity_id, 
-		entity_type: entity_type,
-		subscriptions: []
-	}
 
 	return AsyncInsertObj(subscription, "subscriptions", db);
-}
-
-//promise
-function AsyncInsertNewSubscription(userid,entity_type ,db) {
-
-	var subscription = {
-		entity_id: entity_id, 
-		entity_type: entity_type,
-		subscriptions: []
-	}
-
-	return AsyncInsertObj(subscription, "subscriptions", db);
-}
-
-function AddSubscriptionToUser(userid, subid, subtype, db)
-{
-	//get user subscriptions
-
-	//if there is no creste one
-
-	//add the sub to the user list.
-
 }
 
 
@@ -500,4 +442,3 @@ module.exports.GetOrgSubscribersList = GetOrgSubscribersList;
 module.exports.CreateSubscribers = CreateSubscribers;
 module.exports.DeleteSubscribers = DeleteSubscribers;
 module.exports.UpdateSubscribers = UpdateSubscribers;
-

@@ -9,8 +9,6 @@
     function DlistsController(UserService, $rootScope) {
         var vm = this;
 
-        vm.org = null;
-
         vm.dlists = [];
         vm.newDlistName = null;
         vm.addItem = addItem;
@@ -39,7 +37,7 @@
         function deleteItem(dlist){
             console.log("deleting :" + dlist.list_name + " with id: " + dlist._id);
             vm.dlists.splice(vm.dlists.indexOf(dlist,1));
-            UserService.DeletSubscrober(dlist._id).then(function (response) 
+            UserService.DeleteSubscriber(dlist._id).then(function (response) 
             { 
                 console.log(response.success)
             });
@@ -59,7 +57,7 @@
             tweets_pages: 0
         };
 
-        UserService.AddSubscrober(dlist).then(function (response) 
+        UserService.AddSubscriber(dlist).then(function (response) 
         { 
             console.log(response)
            // dlist._id = response.data.

@@ -10,7 +10,7 @@
     		<div class="small-image pull-left thumbnail"><img src="{{tweet.publisher_pic}}" style="height:3.5em; width: 3.5em"/></div>
 			<div class="panel panel-default">
 				<div class="panel-heading">
-          			<h3 class="panel-title"><b>{{tweet.publisher_name}} </b></h3> <small>{{tweet.create_datetime | date : format : timezone}} </small>
+          			<h3 class="panel-title"><b>{{tweet.publisher_name}} </b></h3> <small>{{tweet.create_datetime | date : format : 'dd/MM/yy h:mm a'}} </small>
           		</div>
          	    <div class="panel-body">
            			{{tweet.text}} 

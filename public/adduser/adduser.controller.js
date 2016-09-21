@@ -68,7 +68,7 @@
                 if (lists[i].subscribers == null) lists[i].subscribers = [];
                 lists[i].subscribers.push({_id: user_id, name: vm.user.fullName, pic: vm.user.pic });
                 lists[i].subscribers_number++;
-                UserService.UpdateSubscrober(lists[i]).then(function (response) {
+                UserService.UpdateSubscriber(lists[i]).then(function (response) {
                     if (response.success) {
                         FlashService.Success('update a dlist was successful', true);
                     } else {

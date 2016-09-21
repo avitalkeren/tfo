@@ -46,7 +46,7 @@
 
         function loadCurrentUser() {
             console.log("org_id: " + $rootScope.globals.currentUser.user_id);
-            UserService.GetById($rootScope.globals.currentUser.user_id)
+            UserService.GetEntityById($rootScope.globals.currentUser.user_id)
                 .then(function (response) 
                     { 
                         if(response.success) 
@@ -68,9 +68,6 @@
 
             });
         }
-      
-
-      
     }
 
 })();
