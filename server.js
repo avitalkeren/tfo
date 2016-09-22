@@ -84,7 +84,7 @@ app.configure('production', function() {
 
  //create user
  app.get('/api/entity/read/:id', function ( request, response ) {
-  tfom.GetEntityById(request, response, db);
+  tfom.GetEntityById(request.params, response, db);
 });
 
 

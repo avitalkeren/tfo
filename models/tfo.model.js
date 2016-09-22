@@ -45,9 +45,10 @@ var Authenticate = function(request, response, db)
     });  
 };
 
-var GetEntitiyById = function(request_params, response, db){
+var GetEntityById = function(request_params, response, db){
    var user_id = request_params.id;
    var find_map = {_id: ObjectID(user_id)};
+  logger.debug("set entity with id: " + user_id);
 
    AsyncFindOneObj(find_map,COLLECTION_ENTITY,db).then(function (res){
       logger.debug("res: " + JSON.stringify(res));
@@ -401,8 +402,6 @@ function AsyncPublishToUser(userid, usretype,tweet,db){
 }
 
 
-	return AsyncInsertObj(subscription, "subscriptions", db);
-}
 
 
 //-----------------------------error handaling-------------------------------
@@ -437,7 +436,7 @@ module.exports.CreateOrg = CreateOrg;
 module.exports.CreateUser = CreateUser;
 module.exports.Publish = Publish;
 module.exports.GetFeedForUser = GetFeedForUser;
-module.exports.GetEntitiyById = GetEntitiyById;
+module.exports.GetEntityById = GetEntityById;
 module.exports.GetOrgSubscribersList = GetOrgSubscribersList;
 module.exports.CreateSubscribers = CreateSubscribers;
 module.exports.DeleteSubscribers = DeleteSubscribers;

@@ -144,3 +144,12 @@ node server.js
 git add . -A
 git commit -m " commit"
 git push origin 
+git add . -A
+git commit -m " commit"
+git push origin 
+nohup node server.js &
+nohup node server.js 
+node server.js 
+pidof node
+node server.js 
+nohup node server.js 

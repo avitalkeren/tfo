@@ -1,0 +1,159 @@
+/home/webstud/models/tfo.model.js:411
+function HandelMongoResponse(response, inner_error, result_map )
+^^^^^^^^
+
+SyntaxError: Unexpected token function
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Module.require (module.js:353:17)
+    at require (internal/module.js:12:17)
+    at Object.<anonymous> (/home/webstud/server.js:10:10)
+    at Module._compile (module.js:409:26)
+    at Object.Module._extensions..js (module.js:416:10)
+/home/webstud/models/tfo.model.js:411
+function HandelMongoResponse(response, inner_error, result_map )
+^^^^^^^^
+
+SyntaxError: Unexpected token function
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Module.require (module.js:353:17)
+    at require (internal/module.js:12:17)
+    at Object.<anonymous> (/home/webstud/server.js:10:10)
+    at Module._compile (module.js:409:26)
+    at Object.Module._extensions..js (module.js:416:10)
+/home/webstud/models/tfo.model.js:411
+function HandelMongoResponse(response, inner_error, result_map )
+^^^^^^^^
+
+SyntaxError: Unexpected token function
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Module.require (module.js:353:17)
+    at require (internal/module.js:12:17)
+    at Object.<anonymous> (/home/webstud/server.js:10:10)
+    at Module._compile (module.js:409:26)
+    at Object.Module._extensions..js (module.js:416:10)
+[36m[2016-09-22 12:52:08.830] [DEBUG] [default] - [39mDatabase connection ready
+[36m[2016-09-22 12:52:08.863] [DEBUG] [default] - [39mApp now running on port 3000
+[36m[2016-09-22 12:52:29.244] [DEBUG] [default] - [39mfor auth org with username: kerenal
+[36m[2016-09-22 12:52:29.254] [DEBUG] [default] - [39mhashed password: sha1$6c2c447f$1$564927ad7cddcd7dceaf1ab9006cfc9ffd6da070
+[36m[2016-09-22 12:52:29.256] [DEBUG] [default] - [39msuccess: {"_id":"57ddfb83f1304c6fa2cb55ed"}
+TypeError: tfom.GetEntityById is not a function
+    at /home/webstud/server.js:87:8
+    at callbacks (/home/webstud/node_modules/express/lib/router/index.js:161:37)
+    at param (/home/webstud/node_modules/express/lib/router/index.js:135:11)
+    at param (/home/webstud/node_modules/express/lib/router/index.js:132:11)
+    at pass (/home/webstud/node_modules/express/lib/router/index.js:142:5)
+    at nextRoute (/home/webstud/node_modules/express/lib/router/index.js:100:7)
+    at callbacks (/home/webstud/node_modules/express/lib/router/index.js:164:11)
+    at /home/webstud/server.js:44:5
+    at callbacks (/home/webstud/node_modules/express/lib/router/index.js:161:37)
+    at param (/home/webstud/node_modules/express/lib/router/index.js:135:11)
+[36m[2016-09-22 12:52:29.530] [DEBUG] [default] - [39mGetFeedForUser: 57ddfb83f1304c6fa2cb55ed page_number: 1
+[36m[2016-09-22 12:52:29.537] [DEBUG] [default] - [39msuccess: {"_id":"57de0b7976891670f896ba11","entity_id":"57ddfb83f1304c6fa2cb55ed","entity_type":"org","page_number":1,"count":6,"tweet_list":[{"_id":"57de0b7976891670f896ba10","text":"klkoko ojojlhhjg hgjyfhfh","create_datetime":1474169721952,"publisher_id":"57ddfb83f1304c6fa2cb55ed","publisher_name":"keren avital","publisher_pic":"/app-content/userImages/9.png","org_dsit_id":"57ddfb83f1304c6fa2cb55ee","org_dsit_name":"everyone"},{"_id":"57de0dc8997d2571315822af","text":"test","create_datetime":1474170312806,"publisher_id":"57ddfb83f1304c6fa2cb55ed","publisher_name":"keren avital","publisher_pic":"/app-content/userImages/9.png","org_dsit_id":"57ddfb83f1304c6fa2cb55ee","org_dsit_name":"everyone"},{"_id":"57de0de3997d2571315822b0","text":"asdsada asfdsa","create_datetime":1474170339796,"publisher_id":"57ddfb83f1304c6fa2cb55ed","publisher_name":"keren avital","publisher_pic":"/app-content/userImages/9.png","org_dsit_id":"57ddfb83f1304c6fa2cb55ee","org_dsit_name":"everyone"},{"_id":"57de0f7e997d2571315822b1","text":"asdsad","create_datetime":1474170750198,"publisher_id":"57ddfb83f1304c6fa2cb55ed","publisher_name":"keren avital","publisher_pic":"/app-content/userImages/9.png","org_dsit_id":"57ddfb97f1304c6fa2cb55ef","org_dsit_name":"list2"},{"_id":"57de8110096f0a765a82a6fd","text":"mmmmoooo ookjggd ujghjyfhg lkjnhkjh lkjbvhjbv lhgghjbv ,jhbg ,bvhjgl,kj ljlk hjuhvmh","create_datetime":1474199824732,"publisher_id":"57ddfb83f1304c6fa2cb55ed","publisher_name":"keren avital","publisher_pic":"/app-content/userImages/9.png","org_dsit_id":"57ddfb83f1304c6fa2cb55ee","org_dsit_name":"everyone"},{"_id":"57debef23046b5792c081f91","text":"la la la","create_datetime":1474215666185,"publisher_id":"57ddfb83f1304c6fa2cb55ed","publisher_name":"keren avital","publisher_pic":"/app-content/userImages/9.png","org_dsit_id":"57ddfb97f1304c6fa2cb55ef","org_dsit_name":"list2"}]}
+[36m[2016-09-22 12:54:06.247] [DEBUG] [default] - [39mfor auth org with username: kerenal
+[36m[2016-09-22 12:54:06.251] [DEBUG] [default] - [39mhashed password: sha1$6c2c447f$1$564927ad7cddcd7dceaf1ab9006cfc9ffd6da070
+[36m[2016-09-22 12:54:06.252] [DEBUG] [default] - [39msuccess: {"_id":"57ddfb83f1304c6fa2cb55ed"}
+[36m[2016-09-22 12:54:10.718] [DEBUG] [default] - [39mcreate new Org: {"username":"lalala","entity_type":"org","password":"1234","pic":"/app-content/userImages/9.png","email":"lalal@momo.com","alt_id":"alt1"}
+[36m[2016-09-22 12:54:10.732] [DEBUG] [default] - [39m{ [MongoError: E11000 duplicate key error collection: tfodb.entity index: username_1 dup key: { : "lalala" }]
+  name: 'MongoError',
+  message: 'E11000 duplicate key error collection: tfodb.entity index: username_1 dup key: { : "lalala" }',
+  driver: true,
+  code: 11000,
+  index: 0,
+  errmsg: 'E11000 duplicate key error collection: tfodb.entity index: username_1 dup key: { : "lalala" }',
+  getOperation: [Function],
+  toJSON: [Function],
+  toString: [Function] }
+MongoError: E11000 duplicate key error collection: tfodb.entity index: username_1 dup key: { : "lalala" }
+    at Function.MongoError.create (/home/webstud/node_modules/mongodb/node_modules/mongodb-core/lib/error.js:31:11)
+    at toError (/home/webstud/node_modules/mongodb/lib/utils.js:114:22)
+    at /home/webstud/node_modules/mongodb/lib/collection.js:652:23
+    at handleCallback (/home/webstud/node_modules/mongodb/lib/utils.js:96:12)
+    at resultHandler (/home/webstud/node_modules/mongodb/lib/bulk/ordered.js:429:14)
+    at /home/webstud/node_modules/mongodb/node_modules/mongodb-core/lib/connection/pool.js:430:18
+    at nextTickCallbackWith0Args (node.js:420:9)
+    at process._tickCallback (node.js:349:13)
+[36m[2016-09-22 12:54:13.902] [DEBUG] [default] - [39mGetFeedForUser: 57d3aa68c0bae37080b2c0d5 page_number: 1
+[36m[2016-09-22 12:54:13.909] [DEBUG] [default] - [39msuccess: {"_id":"57dcf8703df8046160776138","entity_id":"57d3aa68c0bae37080b2c0d5","entity_type":"org","page_number":1,"count":7,"tweet_list":[{"_id":"57dcf8703df8046160776137","text":"asdsad","create_datetime":1474099312366,"publisher_id":"57d3aa68c0bae37080b2c0d5","publisher_name":"bob","publisher_pic":"er","org_dsit_list":"57dbc044c9045350e8aa69c9"},{"_id":"57dcf8ae3df8046160776139","text":"Provides a key-value (string-object) storage, that is backed by session cookies. Objects put or retrieved from this storage are automatically serialized or deserialized by angular's toJson/fromJson.","create_datetime":1474099374941,"publisher_id":"57d3aa68c0bae37080b2c0d5","publisher_name":"bob","publisher_pic":"er","org_dsit_list":"57dbc044c9045350e8aa69c9"},{"_id":"57dd033d2650d76260767c9f","text":"asdsad","create_datetime":1474102077834,"publisher_id":"57d3aa68c0bae37080b2c0d5","publisher_name":"bob","publisher_pic":"er","org_dsit_list":"57dbc044c9045350e8aa69c9"},{"_id":"57dd03442650d76260767ca0","text":"sddddddddddddddddddd","create_datetime":1474102084157,"publisher_id":"57d3aa68c0bae37080b2c0d5","publisher_name":"bob","publisher_pic":"er","org_dsit_list":"57dbc044c9045350e8aa69c9"},{"_id":"57dd180abf6cba638dcb162a","text":"dsdss","create_datetime":1474107402822,"publisher_id":"57d3aa68c0bae37080b2c0d5","publisher_name":"bob","publisher_pic":"/app-content/userImages/1.png","org_dsit_list":"57dbc044c9045350e8aa69c9"},{"_id":"57e2c2cd8e0b632854312a54","text":"this is a text message","create_datetime":1474478797128,"publisher_id":"57d3aa68c0bae37080b2c0d5","publisher_name":"bob","publisher_pic":"/app-content/userImages/1.png","org_dsit_id":"57ddfb97f1304c6fa2cb55ef","org_dsit_name":"list2"},{"_id":"57e2c3ae8e0b632854312a55","text":"this is a text message","create_datetime":1474479022752,"publisher_id":"57d3aa68c0bae37080b2c0d5","publisher_name":"bob","publisher_pic":"/app-content/userImages/1.png","org_dsit_id":"57ddfb97f1304c6fa2cb55ef","org_dsit_name":"list2"}]}
+[36m[2016-09-22 12:54:18.248] [DEBUG] [default] - [39mcreate new Subscribers: {"entity_id":"57ddfb83f1304c6fa2cb55ed","entity_type":"org","is_everyone":0,"list_name":"new d list","subscribers_number":0,"total_num_of_tweets":0,"tweets_pages":0,"subscribers":[]}
+[36m[2016-09-22 12:54:18.253] [DEBUG] [default] - [39msuccess: {"result":{"ok":1,"n":1},"ops":[{"entity_id":"57ddfb83f1304c6fa2cb55ed","entity_type":"org","is_everyone":0,"list_name":"new d list","subscribers_number":0,"total_num_of_tweets":0,"tweets_pages":0,"subscribers":[],"_id":"57e3aa4abaa572348d58328d"}],"insertedCount":1,"insertedIds":["57e3aa4abaa572348d58328d"]}
+[36m[2016-09-22 12:54:19.736] [DEBUG] [default] - [39mcreate new Subscribers: {"entity_id":"57ddfb83f1304c6fa2cb55ed","entity_type":"org","is_everyone":0,"list_name":"new d list","subscribers_number":0,"total_num_of_tweets":0,"tweets_pages":0,"subscribers":[]}
+[36m[2016-09-22 12:54:19.738] [DEBUG] [default] - [39msuccess: {"result":{"ok":1,"n":1},"ops":[{"entity_id":"57ddfb83f1304c6fa2cb55ed","entity_type":"org","is_everyone":0,"list_name":"new d list","subscribers_number":0,"total_num_of_tweets":0,"tweets_pages":0,"subscribers":[],"_id":"57e3aa4bbaa572348d58328e"}],"insertedCount":1,"insertedIds":["57e3aa4bbaa572348d58328e"]}
+[36m[2016-09-22 12:54:25.772] [DEBUG] [default] - [39mdeleting Subscribers: "57e2cad28e0b632854312a57"
+[36m[2016-09-22 12:54:25.776] [DEBUG] [default] - [39msuccess: {"delete_count":{"ok":1,"n":0}}
+[36m[2016-09-22 12:54:26.978] [DEBUG] [default] - [39mdeleting Subscribers: "57e2cad28e0b632854312a57"
+[36m[2016-09-22 12:54:26.985] [DEBUG] [default] - [39msuccess: {"delete_count":{"ok":1,"n":0}}
+[36m[2016-09-22 12:54:27.935] [DEBUG] [default] - [39mdeleting Subscribers: "57e2cad28e0b632854312a57"
+[36m[2016-09-22 12:54:27.936] [DEBUG] [default] - [39msuccess: {"delete_count":{"ok":1,"n":0}}
+[36m[2016-09-22 12:54:32.792] [DEBUG] [default] - [39mcreate new USER :{"username":"subuser1","password":"1234","entity_type":"user","org_id":"57ddfb83f1304c6fa2cb55ed","pic":"/app-content/userImages/10.png","fullName":"my full name","email":"bbb@mmm.com","alt_id":"1111"}
+[36m[2016-09-22 12:54:32.795] [DEBUG] [default] - [39m{ [MongoError: E11000 duplicate key error collection: tfodb.entity index: username_1 dup key: { : "subuser1" }]
+  name: 'MongoError',
+  message: 'E11000 duplicate key error collection: tfodb.entity index: username_1 dup key: { : "subuser1" }',
+  driver: true,
+  code: 11000,
+  index: 0,
+  errmsg: 'E11000 duplicate key error collection: tfodb.entity index: username_1 dup key: { : "subuser1" }',
+  getOperation: [Function],
+  toJSON: [Function],
+  toString: [Function] }
+MongoError: E11000 duplicate key error collection: tfodb.entity index: username_1 dup key: { : "subuser1" }
+    at Function.MongoError.create (/home/webstud/node_modules/mongodb/node_modules/mongodb-core/lib/error.js:31:11)
+    at toError (/home/webstud/node_modules/mongodb/lib/utils.js:114:22)
+    at /home/webstud/node_modules/mongodb/lib/collection.js:652:23
+    at handleCallback (/home/webstud/node_modules/mongodb/lib/utils.js:96:12)
+    at resultHandler (/home/webstud/node_modules/mongodb/lib/bulk/ordered.js:429:14)
+    at /home/webstud/node_modules/mongodb/node_modules/mongodb-core/lib/connection/pool.js:430:18
+    at nextTickCallbackWith0Args (node.js:420:9)
+    at process._tickCallback (node.js:349:13)
+[36m[2016-09-22 12:54:36.746] [DEBUG] [default] - [39mdeleting Subscribers: "57e2cad28e0b632854312a57"
+[36m[2016-09-22 12:54:36.750] [DEBUG] [default] - [39msuccess: {"delete_count":{"ok":1,"n":0}}
+[36m[2016-09-22 19:31:31.694] [DEBUG] [default] - [39mDatabase connection ready
+[36m[2016-09-22 19:31:31.741] [DEBUG] [default] - [39mApp now running on port 3000
+TypeError: tfom.GetEntityById is not a function
+    at /home/webstud/server.js:87:8
+    at callbacks (/home/webstud/node_modules/express/lib/router/index.js:161:37)
+    at param (/home/webstud/node_modules/express/lib/router/index.js:135:11)
+    at param (/home/webstud/node_modules/express/lib/router/index.js:132:11)
+    at pass (/home/webstud/node_modules/express/lib/router/index.js:142:5)
+    at nextRoute (/home/webstud/node_modules/express/lib/router/index.js:100:7)
+    at callbacks (/home/webstud/node_modules/express/lib/router/index.js:164:11)
+    at /home/webstud/server.js:44:5
+    at callbacks (/home/webstud/node_modules/express/lib/router/index.js:161:37)
+    at param (/home/webstud/node_modules/express/lib/router/index.js:135:11)
+[36m[2016-09-22 19:31:42.565] [DEBUG] [default] - [39mGetFeedForUser: 57ddfb83f1304c6fa2cb55ed page_number: 1
+[36m[2016-09-22 19:31:42.579] [DEBUG] [default] - [39msuccess: {"_id":"57de0b7976891670f896ba11","entity_id":"57ddfb83f1304c6fa2cb55ed","entity_type":"org","page_number":1,"count":6,"tweet_list":[{"_id":"57de0b7976891670f896ba10","text":"klkoko ojojlhhjg hgjyfhfh","create_datetime":1474169721952,"publisher_id":"57ddfb83f1304c6fa2cb55ed","publisher_name":"keren avital","publisher_pic":"/app-content/userImages/9.png","org_dsit_id":"57ddfb83f1304c6fa2cb55ee","org_dsit_name":"everyone"},{"_id":"57de0dc8997d2571315822af","text":"test","create_datetime":1474170312806,"publisher_id":"57ddfb83f1304c6fa2cb55ed","publisher_name":"keren avital","publisher_pic":"/app-content/userImages/9.png","org_dsit_id":"57ddfb83f1304c6fa2cb55ee","org_dsit_name":"everyone"},{"_id":"57de0de3997d2571315822b0","text":"asdsada asfdsa","create_datetime":1474170339796,"publisher_id":"57ddfb83f1304c6fa2cb55ed","publisher_name":"keren avital","publisher_pic":"/app-content/userImages/9.png","org_dsit_id":"57ddfb83f1304c6fa2cb55ee","org_dsit_name":"everyone"},{"_id":"57de0f7e997d2571315822b1","text":"asdsad","create_datetime":1474170750198,"publisher_id":"57ddfb83f1304c6fa2cb55ed","publisher_name":"keren avital","publisher_pic":"/app-content/userImages/9.png","org_dsit_id":"57ddfb97f1304c6fa2cb55ef","org_dsit_name":"list2"},{"_id":"57de8110096f0a765a82a6fd","text":"mmmmoooo ookjggd ujghjyfhg lkjnhkjh lkjbvhjbv lhgghjbv ,jhbg ,bvhjgl,kj ljlk hjuhvmh","create_datetime":1474199824732,"publisher_id":"57ddfb83f1304c6fa2cb55ed","publisher_name":"keren avital","publisher_pic":"/app-content/userImages/9.png","org_dsit_id":"57ddfb83f1304c6fa2cb55ee","org_dsit_name":"everyone"},{"_id":"57debef23046b5792c081f91","text":"la la la","create_datetime":1474215666185,"publisher_id":"57ddfb83f1304c6fa2cb55ed","publisher_name":"keren avital","publisher_pic":"/app-content/userImages/9.png","org_dsit_id":"57ddfb97f1304c6fa2cb55ef","org_dsit_name":"list2"}]}
+[36m[2016-09-22 19:35:34.332] [DEBUG] [default] - [39mDatabase connection ready
+[36m[2016-09-22 19:35:34.367] [DEBUG] [default] - [39mApp now running on port 3000
+[36m[2016-09-22 19:36:21.249] [DEBUG] [default] - [39mGetOrgSubscribersList res: [{"_id":"57ddfb83f1304c6fa2cb55ee","entity_id":"57ddfb83f1304c6fa2cb55ed","entity_type":"org","is_everyone":1,"list_name":"everyone","subscribers_number":4,"total_num_of_tweets":0,"tweets_pages":0,"subscribers":[{"_id":"57ddfba8f1304c6fa2cb55f0","name":"user1","pic":"/app-content/userImages/17.png"},{"_id":"57ddfbb9f1304c6fa2cb55f1","name":"user2","pic":"/app-content/userImages/7.png"},{"_id":"57debec13046b5792c081f8f","name":"ggoooo","pic":"/app-content/userImages/10.png"},{"name":"miko","pic":"/app-content/userImages/1.png"}]},{"_id":"57ddfb97f1304c6fa2cb55ef","entity_id":"57ddfb83f1304c6fa2cb55ed","entity_type":"org","is_everyone":0,"list_name":"list2","subscribers":[{"_id":"57ddfbb9f1304c6fa2cb55f1","name":"user2","pic":"/app-content/userImages/7.png"},{"_id":"57debec13046b5792c081f8f","name":"ggoooo","pic":"/app-content/userImages/10.png"}],"subscribers_number":2,"total_num_of_tweets":0,"tweets_pages":0},{"_id":"57e2fafec227242c1940d594","entity_id":"57ddfb83f1304c6fa2cb55ed","entity_type":"org","is_everyone":0,"list_name":"ggg","subscribers":[{"name":"miko","pic":"/app-content/userImages/1.png"}],"subscribers_number":1,"total_num_of_tweets":0,"tweets_pages":0},{"_id":"57e3aa4abaa572348d58328d","entity_id":"57ddfb83f1304c6fa2cb55ed","entity_type":"org","is_everyone":0,"list_name":"new d list","subscribers_number":0,"total_num_of_tweets":0,"tweets_pages":0,"subscribers":[]},{"_id":"57e3aa4bbaa572348d58328e","entity_id":"57ddfb83f1304c6fa2cb55ed","entity_type":"org","is_everyone":0,"list_name":"new d list","subscribers_number":0,"total_num_of_tweets":0,"tweets_pages":0,"subscribers":[]}]
+[36m[2016-09-22 19:36:21.250] [DEBUG] [default] - [39msuccess: [{"_id":"57ddfb83f1304c6fa2cb55ee","entity_id":"57ddfb83f1304c6fa2cb55ed","entity_type":"org","is_everyone":1,"list_name":"everyone","subscribers_number":4,"total_num_of_tweets":0,"tweets_pages":0,"subscribers":[{"_id":"57ddfba8f1304c6fa2cb55f0","name":"user1","pic":"/app-content/userImages/17.png"},{"_id":"57ddfbb9f1304c6fa2cb55f1","name":"user2","pic":"/app-content/userImages/7.png"},{"_id":"57debec13046b5792c081f8f","name":"ggoooo","pic":"/app-content/userImages/10.png"},{"name":"miko","pic":"/app-content/userImages/1.png"}]},{"_id":"57ddfb97f1304c6fa2cb55ef","entity_id":"57ddfb83f1304c6fa2cb55ed","entity_type":"org","is_everyone":0,"list_name":"list2","subscribers":[{"_id":"57ddfbb9f1304c6fa2cb55f1","name":"user2","pic":"/app-content/userImages/7.png"},{"_id":"57debec13046b5792c081f8f","name":"ggoooo","pic":"/app-content/userImages/10.png"}],"subscribers_number":2,"total_num_of_tweets":0,"tweets_pages":0},{"_id":"57e2fafec227242c1940d594","entity_id":"57ddfb83f1304c6fa2cb55ed","entity_type":"org","is_everyone":0,"list_name":"ggg","subscribers":[{"name":"miko","pic":"/app-content/userImages/1.png"}],"subscribers_number":1,"total_num_of_tweets":0,"tweets_pages":0},{"_id":"57e3aa4abaa572348d58328d","entity_id":"57ddfb83f1304c6fa2cb55ed","entity_type":"org","is_everyone":0,"list_name":"new d list","subscribers_number":0,"total_num_of_tweets":0,"tweets_pages":0,"subscribers":[]},{"_id":"57e3aa4bbaa572348d58328e","entity_id":"57ddfb83f1304c6fa2cb55ed","entity_type":"org","is_everyone":0,"list_name":"new d list","subscribers_number":0,"total_num_of_tweets":0,"tweets_pages":0,"subscribers":[]}]
+[36m[2016-09-22 19:37:19.474] [DEBUG] [default] - [39mfor auth org with username: kerenal
+[36m[2016-09-22 19:37:19.479] [DEBUG] [default] - [39mhashed password: sha1$6c2c447f$1$564927ad7cddcd7dceaf1ab9006cfc9ffd6da070
+[36m[2016-09-22 19:37:19.480] [DEBUG] [default] - [39msuccess: {"_id":"57ddfb83f1304c6fa2cb55ed"}
+[36m[2016-09-22 19:38:22.560] [DEBUG] [default] - [39mres: null
+[36m[2016-09-22 19:38:22.560] [DEBUG] [default] - [39msuccess: null
+[36m[2016-09-22 19:38:38.525] [DEBUG] [default] - [39mres: null
+[36m[2016-09-22 19:38:38.525] [DEBUG] [default] - [39msuccess: null
+[36m[2016-09-22 19:39:21.596] [DEBUG] [default] - [39mres: null
+[36m[2016-09-22 19:39:21.597] [DEBUG] [default] - [39msuccess: null
+[36m[2016-09-22 19:39:54.499] [DEBUG] [default] - [39mres: null
+[36m[2016-09-22 19:39:54.500] [DEBUG] [default] - [39msuccess: null
+[36m[2016-09-22 19:39:55.458] [DEBUG] [default] - [39mres: null
+[36m[2016-09-22 19:39:55.458] [DEBUG] [default] - [39msuccess: null
+[36m[2016-09-22 19:40:22.667] [DEBUG] [default] - [39mres: null
+[36m[2016-09-22 19:40:22.667] [DEBUG] [default] - [39msuccess: null
+[36m[2016-09-22 19:41:15.525] [DEBUG] [default] - [39mDatabase connection ready
+[36m[2016-09-22 19:41:15.572] [DEBUG] [default] - [39mApp now running on port 3000
+[36m[2016-09-22 19:41:20.762] [DEBUG] [default] - [39mset entity with id: undefined
+[36m[2016-09-22 19:41:20.770] [DEBUG] [default] - [39mres: null
+[36m[2016-09-22 19:41:20.771] [DEBUG] [default] - [39msuccess: null
