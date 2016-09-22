@@ -141,3 +141,6 @@ node server.js
 pidof node
 kill 10824
 node server.js 
+git add . -A
+git commit -m " commit"
+git push origin 
