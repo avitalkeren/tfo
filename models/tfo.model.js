@@ -10,6 +10,7 @@ var ENTITY_TYPE_ORG = "org";
 var ENTITY_TYPE_USER = "user";
 var COLLECTION_ENTITY = "entity"
 var COLLECTION_SUBSCRIBERS = "subscribers"
+var COLLECTION_FEED = "feed"
 
 //authenticate user - get user by username and validate password
 var Authenticate = function(request, response, db)
@@ -120,7 +121,7 @@ var GetFeedForUser = function(request_params, response, db){
     
     var find_map = {entity_id: ObjectID(user_id), page_number: page_number};
 
-    AsyncFindOneObj(find_map,"feed",db).then(function (res){
+    AsyncFindOneObj(find_map,COLLECTION_FEED,db).then(function (res){
         SendSucess(response,res);
     }, function(error){
        SendError(response,error);
@@ -350,14 +351,34 @@ function AsyncFindList( find_map, proj_map,colname,db){
 }
 
 
+function AsyncFindFeedWithMaxPage( find_map,db){
+  
+  return new Promise(function(resolve, reject) {
+    db.collection(COLLECTION_FEED,
+      function ( outer_error, collection ) {
+        collection.find(find_map).sort({page_number:-1}).limit(1).toArray(
+          function ( inner_error, map_list ) {
+            if (inner_error != null) {
+              reject(inner_error);
+            }
+            else{ 
+              resolve(map_list[0]);
+            }
+          });
+      });
+  });
+}
+
 function AsyncPublishToUser(userid, usretype,tweet,db){
     //get feed page:
     var feedPage = null;
+    logger.debug("AsyncPublishToUser: " + userid);
+    var find_map = { entity_id: ObjectID(userid) } ;
+     return  AsyncFindFeedWithMaxPage(find_map,db).then(function (res){
+     	 logger.debug("Hi");
 
-    var find_map = { $query: {entity_id: userid}, $orderby: { page : -1 } }
-     return  AsyncFindOneObj(find_map,"feed",db).then(function (res){
         if (res != null){
-          logger.debug("found document with ID: " + res._id);
+          logger.debug("found document with ID: " + res._id + " page number: " + res.page_number);
           feedPage = res;
 
           //update feed
@@ -383,6 +404,7 @@ function AsyncPublishToUser(userid, usretype,tweet,db){
         }
         else  //doc fas not found, create a new one
         {
+        	logger.debug("feed not found, creating a new one");
           //create first feed page:
           feedPage = {
             entity_id: userid, 

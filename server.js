@@ -113,6 +113,7 @@ app.configure('production', function() {
     //setting indexes:
     db.collection("entity").ensureIndex({username:1},{unique:1});
     db.collection("feed").ensureIndex({entity_id:1});
+    db.collection("feed").ensureIndex({page_number:1});
     db.collection("subscribers").ensureIndex({entity_id:1});
     db.collection("subscriptions").ensureIndex({entity_id:1});
 

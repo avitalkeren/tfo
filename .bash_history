@@ -153,3 +153,13 @@ node server.js
 pidof node
 node server.js 
 nohup node server.js 
+ls
+nohup node server.js 
+node server.js 
+git add . -A
+git commit -m " commit"
+git push origin 
+pidof node
+kill 14630
+node server.js 
+nohup node server.js 
